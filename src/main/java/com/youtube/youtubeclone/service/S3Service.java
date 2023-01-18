@@ -26,11 +26,11 @@ public class S3Service implements FileService {
   @Override
   public String uploadFile (MultipartFile file)
   {
-   String filenameExtension = StringUtils.getFilenameExtension(file.getOriginalFilename());
-   String key = UUID.randomUUID().toString() + filenameExtension;
-   ObjectMetadata metadata = new ObjectMetadata();
-   metadata.setContentLength(file.getSize());
-   metadata.setContentType(file.getContentType());
+    String filenameExtension = StringUtils.getFilenameExtension(file.getOriginalFilename());
+    String key = UUID.randomUUID().toString() + "." + filenameExtension;
+    ObjectMetadata metadata = new ObjectMetadata();
+    metadata.setContentLength(file.getSize());
+    metadata.setContentType(file.getContentType());
 
     System.out.println("File type: " +file.getContentType());
     System.out.println("File Type from Meta Data: "+metadata.getContentType());
@@ -41,8 +41,8 @@ public class S3Service implements FileService {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"An exception occured while uploading hre file");
     }
     //throwing exception for not setting ACL
-   // amazonS3Client.setObjectAcl(AWS_BUCKET_NAME,key,CannedAccessControlList.PublicRead);
+     amazonS3Client.setObjectAcl(AWS_BUCKET_NAME,key,CannedAccessControlList.PublicRead);
 
-    return amazonS3Client.getResourceUrl(AWS_BUCKET_NAME, key);
+     return amazonS3Client.getResourceUrl(AWS_BUCKET_NAME, key);
   }
 }
