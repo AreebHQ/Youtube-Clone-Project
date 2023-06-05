@@ -24,7 +24,7 @@ public class VideoController {
     return videoService.uploadVideo(file);
   }
 
-  @PostMapping("/thumbnail")
+  @PostMapping("/videos/thumbnail")
   @ResponseStatus(HttpStatus.CREATED)
   public String uploadThumbnail(@RequestParam("file") MultipartFile file, @RequestParam("videoId") String videoId){
     System.out.println("Called thumbnail method in controller!");
